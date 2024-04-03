@@ -1,0 +1,52 @@
+class logDateTime {static String CurrentDate = new Date().format( 'yyyyMMdd' )}
+
+def runRobot() {
+  bat "robot --variable CONFIGNAME:${Config_name} --variable LOGIN:otp --variable Language:TH --nostatusrc -e UnavailableAvailable -e AvailableUnavailable -e UnavailableUnavailable -e Production -d .\\result TestScript\\${folder}\\${TestSuiteRetryPage}"
+}
+
+
+
+def publishReportTestCase(){ 
+    step([$class: 'RobotPublisher', 
+    outputPath: '\\result\\', 
+    outputFileName: '**\\output.xml', 
+    reportFileName: '**\\report.html', 
+    logFileName: '**\\log.html', 
+    disableArchiveOutput: false, 
+    passThreshold: 0, 
+    unstableThreshold: 0, 
+    onlyCritical: true, 
+    otherFiles: '**\\selenium-screenshot*.png']) 
+
+    emailext body: '${SCRIPT, template="robot.groovy"}', subject: '[myAIS_2.0] $PROJECT_NAME', to: '${Email}'
+ 
+}
+
+
+pipeline {
+  agent any
+  options { timestamps () }
+  stages {
+	stage('Clean_workspace') {
+      steps {
+        cleanWs deleteDirs: true, patterns: [[pattern: '**\\*.png', type: 'INCLUDE']]
+      }
+    }
+    stage('Check_workspace') {
+      steps {
+        echo "${workspace}"
+      }
+    }
+	stage('Run Test Suite') {
+      steps {
+        runRobot ()
+      }
+	}
+    stage('Publish results') {
+      steps {
+        publishReportTestCase ()
+      }
+	}
+	
+  }
+}

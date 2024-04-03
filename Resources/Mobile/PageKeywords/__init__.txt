@@ -1,0 +1,8 @@
+*** Settings ***
+Library           AppiumLibrary
+
+*** Keywords ***
+OpenAppOneSiam
+    [Arguments]    ${Version}    ${DeviceName}
+    Open Application    http://localhost:4723/wd/hub    platformName=Android    platformVersion=${Version}    deviceName=${DeviceName}    app=${CURDIR}/demoapp/OrangeDemoApp.apk    appPackage=com.netease.qa.orangedemo
+    ...    appActivity=MainActivity

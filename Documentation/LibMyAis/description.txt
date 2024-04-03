@@ -1,0 +1,17 @@
+Description
+
+ถ้าต้องการทดสอบใช้งาน library 
+- แนะนำให้ python ภายในเครื่องมีแค่ version เดียวเท่านั้น
+- การทดสอบภายใน python version 3.7.4 ถึง 3.8.0 จะสเถียรที่สุด
+-
+
+ขั้นตอนการนำเข้า library เบื้องต้น
+-เข้า path ที่เก็บ python เอาไว้ ตัวอย่าง C:\Users\User\AppData\Local\Programs\Python\Python37\ เป็นต้น
+-ไปที่ช่องค้นหาพิมพ์ชื่อ appiumflutterlibrary ลงไปในช่องค้นหา 
+-เข้าไปในโฟลเดอร์ที่ appiumflutterlibrary
+-โยนไฟล์ .py เข้าไปแทนที่ตามลำดับต่อไปนี้
+    1. __init__.py (ภายนอกโฟลเดอร์สุด)
+
+     ภายในโฟลเดอร์ keyword
+    2.__init_.py
+  3.MyAisHelpper.py
